@@ -116,6 +116,39 @@ public class SingleListInt {
     }
 
 
+    /**
+     * 链表排序 要求时间复杂度为O(nlogn) 空间复杂度 O(1)
+     * 思路:归并+有序链表合并+拆分成两条链表
+     * @param head
+     * @return
+     */
+    public ListNode mergeSort(ListNode head){
+        if(null == head || null == head.next){
+            return head;
+        }
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (fast.next!=null && fast.next.next!=null){
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        ListNode right = slow.next;
+        slow.next = null;
+        ListNode left= head;
+        ListNode l1 = mergeSort(left);
+        ListNode l2 = mergeSort(right);
+        return merger(l1,l2);
+    }
+
+    public ListNode sortList(ListNode head) {
+        if(head == null || head.next == null){
+            return head;
+        }
+        return mergeSort(head);
+    }
+
+
 
     private static class ListNode{
         public int val;

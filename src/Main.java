@@ -1,3 +1,5 @@
+
+
 import java.util.Scanner;
 
 public class Main {
@@ -22,7 +24,16 @@ public class Main {
 //        list.print();
 //
 //        System.out.println(list.isPara());
+//        int[] a = {1,4,3,2,1,9,8,4};
+//        new Sorting().quickSort(a,0,7);
+//        for (int i:a){
+//            System.out.print(" "+i);
+//        }
+        Solution.ListNode head = Solution.createList(10);
 
+        Solution.print(head);
+        Solution.ListNode newHead = Solution.reverse(head);
+        Solution.print(newHead);
 
     }
 }
