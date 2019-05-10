@@ -35,7 +35,9 @@ public class Main {
 //        Solution.ListNode newHead = Solution.reverse(head);
 //        Solution.print(newHead);
 
-        System.out.print(Solution.pow(2,4));
+//        System.out.print(Solution.pow(2,4));
+        int[] a = new int[]{4,3,2,1,2,0,1};
+        System.out.print(new Solution().convertStr(a));
 
     }
 }

@@ -295,17 +295,95 @@ public class Solution {
 
 
 
-    /**
-     * 二分查找
-     */
 
     /**
-     * 输入一个数组，让所有奇数位于偶数前面
+     * 二分查找（递归和非递归）
      */
+    public int binarySearch(int[] arr,int value){
+        int low = 0;
+        int high=arr.length-1;
+
+        while (low<=high){
+            int mid = low+(high-low)>>1;
+            if(arr[mid] == value){
+                return mid;
+            }else if(value<arr[mid]){
+                high=mid-1;
+            }else {
+                low=mid+1;
+            }
+        }
+        return -1;
+    }
+
+    public int binarySearch2(int[] arr,int value){
+        int low = 0;
+        int high = arr.length-1;
+        return binarySearc(arr,low,high,value);
+    }
+
+    private int binarySearc(int[] arr,int low,int high,int value){
+        if(low>high)return -1;
+        int mid=low+(high-low)>>1;
+        if(arr[mid] == value){
+            return mid;
+        }else if(value<arr[mid]){
+            return binarySearc(arr,low,mid-1,value);
+        }else {
+            return binarySearc(arr,mid+1,high,value);
+        }
+    }
+
+    /**
+     * 输入一个数组，让所有偶数在奇数前面
+     * 奇数在前偶数在后(快排思想)
+     */
+    public int[] sortArrayByParity(int[] A) {
+        int left=0;
+        int right = A.length-1;
+
+        int key=A[left];
+        while (left<right){
+            while (left<right && (A[right] & 1)==1){
+                right--;
+            }
+            A[left]=A[right];
+
+            while (left<right && (A[left] & 1)==0){
+                left++;
+            }
+            A[right]=A[left];
+        }
+
+        A[left]=key;
+
+        return A;
+    }
 
     /**
      * 把一个int型数组中的数字拼成一个字符串，这个串代表的数字最小
      */
+    public String convertStr(int[] arr){
+        quickSort(arr,0,arr.length-1);
+        StringBuilder builder = new StringBuilder();
+
+        int k=-1;
+        for (int i=0;i<arr.length;i++){
+            if(arr[i] != 0){
+                k=i;
+                break;
+            }
+        }
+        if(k==-1)return "0";
+
+        for (int i=k;i<arr.length;i++){
+            builder.append(""+arr[i]);
+        }
+
+        String result = new String(builder);
+        return result;
+
+    }
 
     /**
      * 两个栈实现一个队列
@@ -323,6 +401,44 @@ public class Solution {
      * 快速排序
      */
 
+    private int partition(int[]arr,int left,int right){
+        int key = arr[left];
+        while (left<right){
+            while (left<right && arr[right]>key){
+                right--;
+            }
+            arr[left]=arr[right];
+            while (left<right && arr[left]<=key){
+                left++;
+            }
+            arr[right]=arr[left];
+        }
 
+        arr[left]=key;
+        return left;
+    }
+
+    public void quickSort(int[] arr,int left,int right){
+        if(left<right){
+            int partition=partition(arr,left,right);
+            quickSort(arr,left,partition-1);
+            quickSort(arr,partition+1,right);
+        }
+    }
+
+    /**
+     * 循环移动数组 原地排序算法 时间复杂度为O(k)
+     */
+
+    public void rotate(int[] nums, int k) {
+        int len = nums.length;
+        for (int i=0;i<k;i++){
+            int tmp = nums[0];
+            for (int j=1;j<len;j++){
+                nums[j-1]=nums[j];
+            }
+            nums[len-1]=tmp;
+        }
+    }
 
 }

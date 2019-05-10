@@ -1,3 +1,8 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * 基本排序算法
  */
@@ -101,4 +106,73 @@ public class Sorting {
         }
     }
 
+    /**
+     * 归并排序
+     */
+
+    /**
+     * 堆排
+     */
+
+
+    /**
+     * 三数之和(先排序)
+     */
+    public List<List<Integer>> threeSum(int[] nums) {
+        //先排序
+        Arrays.sort(nums);
+        List<List<Integer>> result = new LinkedList<>();
+        int lo ;
+        int hi ;
+        //i的下标表示的是第一个数，考虑到三个数的相加，所以i的下标最多是len-3
+        for(int i=0;i<nums.length-2;i++){
+            if(i==0 || i>0 && nums[i]!=nums[i-1]){
+                lo = i+1;
+                hi = nums.length-1;
+                int sum=-nums[i];
+                while(lo<hi){
+                    if(nums[lo]+nums[hi]==sum){
+                        result.add(Arrays.asList(nums[i],nums[lo],nums[hi]));
+                        while(lo<hi && nums[lo]==nums[lo+1])lo++;
+                        while(lo<hi && nums[hi]==nums[hi-1])hi--;
+                        lo++;hi--;
+                    }else if(nums[lo]+nums[hi]<sum){
+                        lo++;
+                    }else{
+                        hi--;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+
+    public List<List<Integer>> threeSum1(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(nums);
+        for(int i=0;i<nums.length-2;i++){
+            if(i==0 || i>0 && nums[i]!=nums[i+1]){
+                int low=i+1;
+                int high=nums.length-1;
+                int sum = -nums[i];
+                while (low<high){
+                    if(nums[low]+nums[high] == sum){
+                        result.add(Arrays.asList(nums[i],nums[low],nums[high]));
+                        while (low<high && nums[low]==nums[low+1])low++;
+                        while (low<high && nums[high]==nums[high-1])high--;
+                    }else if(nums[low]+nums[high]<sum){
+                        low++;
+                    }else {
+                        high--;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 求众数
+     */
 }
