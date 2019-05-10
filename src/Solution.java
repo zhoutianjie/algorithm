@@ -250,6 +250,79 @@ public class Solution {
         return result;
     }
 
+    /**
+     * 判断一个字符串是另一个字符串的子串(KMP算法 了解一下)
+     *这个一定要掌握
+     */
+
+    /**
+     * 如何判断一个字符串是回文
+     */
+    public boolean isPara(String str){
+        if (str == null || str.length() == 0){
+            return true;
+        }
+        int i=0;
+        int j=str.length()-1;
+        while (i<j){
+            if(str.charAt(i) != str.charAt(j)){
+                return false;
+            }
+            i++;
+            j--;
+        }
+        return true;
+    }
+
+    /**
+     * 递归实现?
+     */
+    /**(n>=0)
+     * 幂函数的实现a的x幂次方（有点二分的意思所以时间复杂度应该是O(logn)）
+     */
+    public static long pow(int x,int n){
+        if(n==0)return 1;
+        if(n==1)return x;
+        long tmp;
+        if(n%2 == 0){
+            tmp = pow(x,n/2);
+            return tmp*tmp;
+        }else {
+            tmp = pow(x,(n-1)/2);
+            return tmp*tmp*x;
+        }
+    }
+
+
+
+    /**
+     * 二分查找
+     */
+
+    /**
+     * 输入一个数组，让所有奇数位于偶数前面
+     */
+
+    /**
+     * 把一个int型数组中的数字拼成一个字符串，这个串代表的数字最小
+     */
+
+    /**
+     * 两个栈实现一个队列
+     */
+
+    /**
+     * 合并排序
+     */
+
+    /**
+     * 归并排序
+     */
+
+    /**
+     * 快速排序
+     */
+
 
 
 }

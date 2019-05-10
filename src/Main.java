@@ -29,11 +29,13 @@ public class Main {
 //        for (int i:a){
 //            System.out.print(" "+i);
 //        }
-        Solution.ListNode head = Solution.createList(10);
+//        Solution.ListNode head = Solution.createList(10);
+//
+//        Solution.print(head);
+//        Solution.ListNode newHead = Solution.reverse(head);
+//        Solution.print(newHead);
 
-        Solution.print(head);
-        Solution.ListNode newHead = Solution.reverse(head);
-        Solution.print(newHead);
+        System.out.print(Solution.pow(2,4));
 
     }
 }
