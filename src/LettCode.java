@@ -1,6 +1,7 @@
 import bean.TreeNode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -148,7 +149,56 @@ public class LettCode {
     }
 
 
+    /**
+     * 求二叉树深度
+     * @param root
+     * @return
+     */
+    public int maxDepth(TreeNode root) {
+        if( root == null){
+            return 0;
+        }
+        int len_left = maxDepth(root.left)+1;
+        int len_right = maxDepth(root.right)+1;
+        return len_left>len_right ? len_left:len_right;
+    }
 
+    /**
+     * LettCode 习题
+     * Serial: 543 二叉树直径
+     * difficulty:
+     * Description: 任意两个节点之间最大距离
+     * 思路：左子树和右子树中最大的高度 +2  和 左子树的直径 和 右子树的直径
+     */
+
+    public int diameterOfBinaryTree(TreeNode root) {
+        if(root == null){
+            return 0;
+        }
+        int lh = maxDepth(root.left);
+        int rh = maxDepth(root.right);
+
+        int ld = diameterOfBinaryTree(root.left);
+        int rd = diameterOfBinaryTree(root.right);
+
+        return Math.max(lh+rh,Math.max(ld,rd));
+    }
+
+    int diameter = 0;
+    public int diameterOfBinarytree(TreeNode root){
+        getDepth(root);
+        return diameter;
+    }
+
+    private int getDepth(TreeNode root){
+        if(root == null){
+            return 0;
+        }
+        int left = getDepth(root.left);
+        int right = getDepth(root.right);
+        diameter = Math.max(diameter,left+right);
+        return Math.max(left,right)+1;
+    }
 
 
 
