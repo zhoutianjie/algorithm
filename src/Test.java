@@ -1,6 +1,8 @@
 import bean.TreeNode;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 
 public class Test {
@@ -363,8 +365,152 @@ public class Test {
         preTravel(root.right,queue);
     }
 
+    /**
+     * 返回二叉树的所有路径
+     * @param root
+     * @return
+     */
+    public List<String> binaryTreePaths(TreeNode root) {
+        List<String> paths = new ArrayList<>();
+        savepath(root,paths,"");
+        return paths;
+    }
+
+    private void savepath(TreeNode root, List<String> paths,String path){
+        if(root!=null){
+            path = ""+root.val;
+            if(root.left == null && root.right == null){
+                paths.add(path);
+            }
+            path +="->";
+            savepath(root.left,paths,path);
+            savepath(root.right,paths,path);
+
+        }
+    }
 
 
+    public String tree2str(TreeNode t) {
+        StringBuilder sb = new StringBuilder();
+        tree2str(t,sb);
+        return sb.toString();
+    }
+
+    private void tree2str(TreeNode t,StringBuilder sb){
+        if(t == null){
+            return;
+        }
+        sb.append(""+t.val);
+        if(t.left == null && t.right == null){
+            tree2str(t.left,sb);
+        }else {
+            sb.append("(");
+            tree2str(t.left,sb);
+            sb.append(")");
+        }
+
+        if(t.right!=null){
+            sb.append("(");
+            tree2str(t.right,sb);
+            sb.append(")");
+        }else {
+            tree2str(t.right,sb);
+        }
+    }
+
+    /**
+     * 返回每层平均值组成的数组
+     * @param root
+     * @return
+     */
+    public List<Double> averageOfLevels(TreeNode root) {
+        List<Double> list = new ArrayList<>();
+        if(root == null){
+            return list;
+        }
+        Queue<TreeNode> queue = new ArrayDeque<>();
+        queue.add(root);
+        boolean isNewLevel = true;
+        int size = 0;
+        int cnt = 0;
+        double sum = 0;
+        while (!queue.isEmpty()){
+            if(isNewLevel){
+                sum = 0;
+                size = queue.size();
+                cnt = size;
+                isNewLevel = false;
+            }
+            TreeNode treeNode = queue.poll();
+            if(treeNode!=null){
+                sum+=treeNode.val;
+                cnt--;
+                if(treeNode.left!=null){
+                    queue.offer(treeNode.left);
+                }
+               if(treeNode.right!=null){
+                   queue.offer(treeNode.right);
+               }
+                if(cnt == 0){
+                    double avg = sum/size;
+                    list.add(avg);
+                    isNewLevel = true;
+                }
+            }
+        }
+        return list;
+    }
+
+    public TreeNode constructMaximumBinaryTree(int[] nums) {
+        return constructMaximumBinaryTree(nums,0,nums.length-1);
+    }
+
+    private TreeNode constructMaximumBinaryTree(int[] nums,int left,int right){
+        if(right>=left){
+            int maxIndex = getMaxIndex(nums,left,right);
+            TreeNode root = new TreeNode(nums[maxIndex]);
+            root.left = constructMaximumBinaryTree(nums,left,maxIndex-1);
+            root.right = constructMaximumBinaryTree(nums,maxIndex+1,right);
+            return root;
+        }else {
+            return null;
+        }
+    }
+
+    private int getMaxIndex(int[] nums,int left,int right){
+        int maxIndex = left;
+        int maxValue = nums[left];
+        for(int i=left;i<=right;i++){
+            if(maxValue < nums[i]){
+                maxValue = nums[i];
+                maxIndex = i;
+            }
+        }
+        return maxIndex;
+    }
+
+
+    public TreeNode insertIntoMaxTree(TreeNode root, int val) {
+        if(root == null){
+           return new TreeNode(val);
+        }else {
+            if(root.val<val){
+                TreeNode _root = new TreeNode(val);
+                _root.left = root;
+                return _root;
+            }else {
+                root.right =  insertIntoMaxTree(root.right,val);
+                return root;
+            }
+        }
+    }
+
+
+    /**
+     * 输出二叉树
+     * @param root
+     * @return
+     */
 
 
 

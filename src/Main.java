@@ -1,9 +1,14 @@
-import threads.lettcode_1116.IntConsumer;
-import threads.lettcode_1116.ZeroEvenOdd;
+import java.util.*;
 
 public class Main {
-
     public static void main(String[] args){
-        new Test().test();
+
     }
+
+
+
+
+
+
+
 }
