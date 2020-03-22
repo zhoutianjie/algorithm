@@ -137,9 +137,79 @@ public class LettcodeSolution {
         return 0;
     }
 
-    
+    /**
+     * 压缩字符串
+     * @param S
+     * @return
+     */
+    public String compressString(String S) {
+        StringBuilder sb  = new StringBuilder();
+        if(S.length() == 1){
+            return S;
+        }
+        int cnt = 1;
+        for (int i=1;i<S.length();i++){
+            if(S.charAt(i-1)== S.charAt(i)){
+                cnt++;
+            }else{
+                sb.append(S.charAt(i-1)).append(cnt);
+                cnt=1;
+            }
 
+            if(i==S.length()-1){
+                sb.append(S.charAt(i)).append(cnt);
+            }
+        }
+        if(sb.length()>=S.length()){
+            return S;
+        }else {
+            return sb.toString();
+        }
+    }
 
+    /**
+     * 跳跃游戏II
+     * @param nums
+     * @return
+     */
+    public int jump(int[] nums) {
+        if(nums[0]>=nums.length-1){
+            return 1;
+        }else {
+            jump(0,nums);
+            return cnt;
+        }
+
+    }
+
+    private int cnt = 0;
+    private void jump(int position,int[] nums){
+        if(position+nums[position]>=nums.length-1){
+            return;
+        }else {
+            cnt++;
+            for (int i=position+1;i<nums.length;i++){
+                jump(i,nums);
+            }
+        }
+    }
+
+    public int maximalSquare(char[][] matrix) {
+      if(matrix == null || matrix.length<1 || matrix[0].length<1)return 0;
+      int row = matrix.length;
+      int col = matrix[0].length;
+      int[][] dp = new int[row+1][col+1];
+      int maxLen = 0;
+      for (int i= 0;i<row;i++){
+          for (int j=0;j<col;j++){
+              if(matrix[i][j]=='1'){
+                  dp[i+1][j+1]=Math.min(dp[i+1][j],Math.min(dp[i][j],dp[i][j+1]))+1;
+                  maxLen = Math.max(maxLen,dp[i+1][j+1]);
+              }
+          }
+      }
+      return maxLen*maxLen;
+    }
 
 
 
