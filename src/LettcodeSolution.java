@@ -211,6 +211,104 @@ public class LettcodeSolution {
       return maxLen*maxLen;
     }
 
+    public int jump1(int[] nums){
+        int end = 0;
+        int step = 0;
+        int maxPosition = 0;
+        for (int i=0;i<nums.length-1;i++){
+            maxPosition = Math.max(maxPosition,nums[i]+i);
+            if(i==end){
+                end = maxPosition;
+                step++;
+            }
+        }
+        return step;
+    }
+
+    /**
+     * LettCode 习题
+     * Serial:
+     * difficulty:
+     * Description:面试题62. 圆圈中最后剩下的数字
+     */
+    public int lastRemaining(int n, int m) {
+        if(n == 1){
+            return 0;
+        }
+        return (lastRemaining(n-1,m)+m)%n;
+    }
+
+    /**
+     * LettCode 习题
+     * Serial:
+     * difficulty:
+     * Description: 排序算法 快排，堆排，归并，冒泡，四种排序算法来实现
+     */
+    public int[] sortArray(int[] nums) {
+        //quickSotr(nums,0,nums.length-1);
+        heapSort(nums,nums.length);
+        return nums;
+    }
+
+    //快排
+    private int partition(int[] arr,int left,int right){
+        int key = arr[left];
+        while (left<right){
+            while (left<right && arr[right]>=key){
+                right--;
+            }
+            arr[left]=arr[right];
+            while (left<right && arr[left]<key){
+                left++;
+            }
+            arr[right]=arr[left];
+        }
+        arr[left]=key;
+        return left;
+    }
+
+    private void quickSotr(int[] arr,int left,int right){
+        if(left<right){
+            int result = partition(arr,left,right);
+            quickSotr(arr,left,result-1);
+            quickSotr(arr,result+1,right);
+        }
+    }
+
+    //堆排
+    private void swap(int[] arr,int i,int j){
+        int tmp = arr[i];
+        arr[i]=arr[j];
+        arr[j]=tmp;
+    }
+
+    private void heapUp(int[] arr,int i,int len){
+        while (true){
+            int maxPos = i;
+            if(2*i+1<len && arr[maxPos]<arr[2*i+1])maxPos=2*i+1;
+            if(2*i+2<len && arr[maxPos]<arr[2*i+2])maxPos=2*i+2;
+            if(maxPos == i) break;
+            swap(arr,maxPos,i);
+            i=maxPos;
+        }
+    }
+
+    private void buildHeap(int[] arr,int len){
+        for (int i=len-1-1/2;i>=0;i--){
+            heapUp(arr,i,arr.length);
+        }
+    }
+
+    private void heapSort(int[] arr,int len){
+        buildHeap(arr,len);
+        for (int j=len-1;j>0;j--){
+            swap(arr,0,j);
+            heapUp(arr,0,j);
+        }
+    }
+
+    //归并排序
+
 
 
 
