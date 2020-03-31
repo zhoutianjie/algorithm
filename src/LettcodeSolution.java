@@ -308,6 +308,54 @@ public class LettcodeSolution {
     }
 
     //归并排序
+    private void mergeSort(int[] arr,int left,int right){
+        if(left<right){
+            int mid = left+((right-left)>>1);
+            mergeSort(arr,left,mid);
+            mergeSort(arr,mid+1,right);
+            merge(arr,left,mid,right);
+        }
+    }
+    private void merge(int[] arr,int left,int mid,int right){
+        int[] tmp = new int[right-left+1];
+        int k =0;
+        int i=left;
+        int j=mid+1;
+        while (i<=mid && j<=right){
+            if(arr[i]<arr[j]){
+                tmp[k++]=arr[i++];
+            }else {
+                tmp[k++]=arr[j++];
+            }
+        }
+        while (i<=mid){
+            tmp[k++]=arr[i++];
+        }
+        while (j<=right){
+            tmp[k++]=arr[j++];
+        }
+        k=0;
+        for(int m=left;m<=right;m++){
+            arr[m]=tmp[k++];
+        }
+    }
+
+    private void bubbleSort(int[] arr){
+        for (int i=0;i<arr.length;i++){
+            boolean isSwap = false;
+            for (int j=0;j<arr.length-i-1;j++){
+                if(arr[j]>arr[j+1]){
+                    swap(arr,j,j+1);
+                    isSwap = true;
+                }
+            }
+            if(!isSwap){
+                break;
+            }
+        }
+    }
+
+
 
 
 
